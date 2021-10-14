@@ -46,6 +46,10 @@
     <Compile Include="TCP_Client\TCPClient.cs" />
     <Compile Include="TCP_Client\TCPClient_Data.cs" />
     <Compile Include="TCP_Server\TCPServer.cs" />
+    <Compile Include="TCP_Server\TCPServer_EventArgs\TCPServer_OnLoggerArgs.cs" />
+    <Compile Include="TCP_Server\TCPServer_EventArgs\TCPServer_OnServerObjectCreatedArgs.cs" />
+    <Compile Include="TCP_Server\TCPServer_EventArgs\TCPServer_OnServerStartedArgs.cs" />
+    <Compile Include="TCP_Server\TCPServer_EventArgs\TCPServer_OnServerStoppedArgs.cs" />
     <Compile Include="TCP_Server\TCPServer_EventManager.cs" />
     <Compile Include="TCP_Server\TCPServer_Data.cs" />
   </ItemGroup>
