@@ -12,11 +12,13 @@ namespace tcp_framework.TCP_Client
 {
     public class TCPClient
     {
+        private TCPClient_Data _clientData;
 
-        public TCPClient()
+        public TCPClient(TCPClient_Data clientData)
         {
-            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            _clientData = clientData;
         }
+
 
     }
 }

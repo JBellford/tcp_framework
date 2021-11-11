@@ -15,10 +15,11 @@ namespace tcp_framework.TCP_Client
         private string _serverIP;
         private int _serverPort;
 
+        private int _totalMessagesSent;
         private double _totalBytesSent;
         private double _totalByteReceived;
 
-        public TCPClient_Data(string serverIP, int serverPort)
+        public TCPClient_Data()
         {
 
         }
@@ -45,8 +46,43 @@ namespace tcp_framework.TCP_Client
                 _serverPort = value;
             }
         }
+        public int TotalMessagesSent
+        {
+            get
+            {
+                return _totalMessagesSent;
+            }
+            set
+            {
+                _totalMessagesSent = value;
+            }
+        }
+        public double TotalBytesSent
+        {
+            get
+            {
+                return _totalBytesSent;
+            }
+            set
+            {
+                _totalBytesSent = value;
+            }
+        }
+        public double TotalBytesReceived
+        {
+            get
+            {
+                return _totalByteReceived;
+            }
+            set
+            {
+                _totalByteReceived = value;
+            }
+        }
 
-    
+        public void Reset()
+        {
 
+        }
     }
 }

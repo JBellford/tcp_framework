@@ -20,24 +20,24 @@ namespace tcp_framework.TCP_Server
         private bool _shouldAcceptConnections;
 
         private TCPServer_EventManager _eventManager;
-        private TCPServer_Data _data;
+        private TCPServer_Data _serverData;
 
         public TCPServer(TCPServer_Data data)
         {
-            _data = data;
+            _serverData = data;
             _eventManager = new TCPServer_EventManager();
             _serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            _serverSocket.Bind(new IPEndPoint(_data.InternalIP, _data.Port));
+            _serverSocket.Bind(new IPEndPoint(_serverData.InternalIP, _serverData.Port));
 
             ConnectedClients = new List<Socket>();
-            EventManager.CallServerObjectCreated(_serverSocket, new TCPServer_OnServerObjectCreatedArgs() { PreSetData = _data, StartTime = DateTime.Now });
+            EventManager.CallServerObjectCreated(_serverSocket, new TCPServer_OnServerObjectCreatedArgs() { PreSetData = _serverData, StartTime = DateTime.Now });
 
-            _serverSocket.Listen(_data.MaximumBackloggedClients);
+            _serverSocket.Listen(_serverData.MaximumBackloggedClients);
         }
         
         public void Start()
         {
-            EventManager.CallServerStarted(_serverSocket, new TCPServer_OnServerStartedArgs() { StartTime = DateTime.Now, Port = _data.Port });
+            EventManager.CallServerStarted(_serverSocket, new TCPServer_OnServerStartedArgs() { StartTime = DateTime.Now, Port = _serverData.Port });
 
             _shouldAcceptConnections = true;
 
