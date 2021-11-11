@@ -9,5 +9,14 @@ namespace tcp_framework.TCP_Client
     public class TCPClient
     {
 
+        public TCPClient(string ip, int port, int timeout)
+        {
+
+        }
+
+        public void Connect()
+        {
+
+        }
     }
 }

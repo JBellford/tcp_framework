@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,6 +24,8 @@ namespace tcp_framework.TCP_Server
         private int _keepAliveRetries = 5;
         private int _keepAliveTimeout = 10;
         private int _keepAliveInterval = 1;
+
+        private List<Socket> _connectClients = new List<Socket>();
 
         public TCPServer_Data(IPAddress internalIP, int port, int maxConnectedClients, int maxBackloggedClients, int maxDelayAcceptingClients, int keepAliveRetries, int keepAliveTimeout, int keepAliveInterval, bool verbose)
         {
@@ -163,6 +166,14 @@ namespace tcp_framework.TCP_Server
             set
             {
                 _verbose = value;
+            }
+        }
+
+        public List<Socket> ConnectedClients
+        {
+            get
+            {
+                return _connectClients;
             }
         }
 

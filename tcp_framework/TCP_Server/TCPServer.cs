@@ -34,7 +34,7 @@ namespace tcp_framework.TCP_Server
 
             _serverSocket.Listen(_data.MaximumBackloggedClients);
         }
-
+        
         public void Start()
         {
             EventManager.CallServerStarted(_serverSocket, new TCPServer_OnServerStartedArgs() { StartTime = DateTime.Now, Port = _data.Port });
@@ -68,6 +68,7 @@ namespace tcp_framework.TCP_Server
                 }
                 Thread.Sleep(250);
             }
+
             ConnectedClients = new List<Socket>();
             EventManager.CallServerStopped(_serverSocket, new TCPServer_OnServerStoppedArgs() { TimeStopped = DateTime.Now, });
         }
