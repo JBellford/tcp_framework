@@ -97,6 +97,17 @@ namespace tcp_framework.TCP_Server
                 _shouldAcceptConnections = value;
             }
         }
+        public Socket ServerSocket
+        {
+            get
+            {
+                return _serverSocket;
+            }
+            set
+            {
+                _serverSocket = value;
+            }
+        }
 
         private void AcceptCallback(IAsyncResult result)
         {
