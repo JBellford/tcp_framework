@@ -9,16 +9,16 @@ namespace tcp_framework.TCP_Client
     public class TCPClient_EventManager
     {
         public event EventHandler<TCPClient_OnConnectedArgs> OnClientConnected;
-        public event EventHandler<TCPClient_OnDisconnectArgs> OnClientDisconnected;
+        public event EventHandler<TCPClient_OnDisconnectArgs> OnClientDClientConnected;
         public event EventHandler<TCPClient_OnMessageReceived> OnClientMessageReceived;
 
         internal void CallOnClientConnected(object sender, TCPClient_OnConnectedArgs args)
         {
             OnClientConnected?.Invoke(sender, args);
         }
-        internal void CallOnClientDisconnected(object sender, TCPClient_OnDisconnectArgs args)
+        internal void CallOnClientDClientConnected(object sender, TCPClient_OnDisconnectArgs args)
         {
-            OnClientDisconnected?.Invoke(sender, args);
+            OnClientDClientConnected?.Invoke(sender, args);
         }
         internal void CallOnClientMessageReceived(object sender, TCPClient_OnMessageReceived args)
         {

@@ -19,9 +19,11 @@ namespace tcp_framework.TCP_Client
         private double _totalBytesSent;
         private double _totalByteReceived;
 
+        private int _listenerDelay;
+
         public TCPClient_Data()
         {
-
+            Reset();
         }
 
         public string ServerIP
@@ -79,10 +81,26 @@ namespace tcp_framework.TCP_Client
                 _totalByteReceived = value;
             }
         }
+        public int ListenerDelay
+        {
+            get
+            {
+                return _listenerDelay;
+            }
+            set
+            {
+                _listenerDelay = value;
+            }
+        }
 
         public void Reset()
         {
-
+            ServerIP = "127.0.0.1";
+            ServerPort = 8080;
+            TotalMessagesSent = 0;
+            TotalBytesSent = 0.0;
+            TotalBytesReceived = 0.0;
+            ListenerDelay = 1000;
         }
     }
 }

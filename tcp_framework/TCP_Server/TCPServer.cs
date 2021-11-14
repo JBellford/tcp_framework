@@ -60,7 +60,7 @@ namespace tcp_framework.TCP_Server
                 try
                 {
                     socket.Disconnect(false);
-                    EventManager.CallClientDisconnected(_serverSocket, socket);
+                    EventManager.CallClientDClientConnected(_serverSocket, socket);
                 }
                 catch
                 {

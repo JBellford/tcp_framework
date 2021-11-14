@@ -27,18 +27,9 @@ namespace tcp_framework.TCP_Server
 
         private List<Socket> _connectClients = new List<Socket>();
 
-        public TCPServer_Data(IPAddress internalIP, int port, int maxConnectedClients, int maxBackloggedClients, int maxDelayAcceptingClients, int keepAliveRetries, int keepAliveTimeout, int keepAliveInterval, bool verbose)
+        public TCPServer_Data()
         {
-            InternalIP = internalIP;
-            Port = port;
-            StartTime = DateTime.Now;
-            MaximumConnectedClients = maxConnectedClients;
-            MaximumBackloggedClients = maxBackloggedClients;
-            MaximumDelayAcceptingClients = maxDelayAcceptingClients;
-            KeepAliveRetries = keepAliveRetries;
-            KeepAliveTimeout = keepAliveTimeout;
-            KeepAliveInterval = keepAliveInterval;
-            Verbose = verbose;
+            Reset();
         }
         
         public DateTime StartTime

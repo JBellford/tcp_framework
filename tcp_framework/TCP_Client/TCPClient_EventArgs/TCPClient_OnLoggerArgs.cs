@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace tcp_framework.TCP_Server.TCPServer_EventArgs
+namespace tcp_framework.TCP_Client.TCPClient_EventArgs
 {
     public class TCPServer_OnLoggerArgs
     {
@@ -38,10 +38,10 @@ namespace tcp_framework.TCP_Server.TCPServer_EventArgs
     public enum TCPServer_LogType
     {
         Error,
-        ServerObjectCreated,
-        ServerStarted,
-        ServerStopped,
+        ClientMessageReceived,
+        ClientCreated,
+        ClientStopped,
         ClientConnected,
-        ClientDClientConnected
+        ClientDisconnected
     }
 }

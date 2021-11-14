@@ -7,7 +7,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
-
 namespace tcp_framework.TCP_Client
 {
     public class TCPClient
@@ -16,23 +15,65 @@ namespace tcp_framework.TCP_Client
         private TCPClient_Data _clientData;
         private TCPClient_EventManager _eventManager;
 
-        private bool _clientIsConnected;
+        private bool _clientConnected;
 
         public TCPClient(TCPClient_Data clientData)
         {
             _clientData = clientData;
             _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             _eventManager = new TCPClient_EventManager();
+
+            new Thread(Listener).Start();
         }
 
         public void Connect()
         {
-            ClientSocket.Connect(_clientData.ServerIP, _clientData.ServerPort);
+            try
+            {
+                ClientSocket.Connect(_clientData.ServerIP, _clientData.ServerPort);
+                ClientConnected = true;
+            }
+            catch
+            {
+                ClientConnected = false;
+            }
         }
         public void Disconnect(bool reuseClient = false)
         {
+            if (ClientConnected)
+                ClientConnected = false;
             ClientSocket.Disconnect(reuseClient);
         }
+
+        private void Listener()
+        {
+            while (true)
+            {
+                try
+                {
+                    if (ClientConnected && SocketConnected && ClientSocket.Available > 0)
+                    {
+                        byte[] buffer = new byte[1024];
+                        int size = ClientSocket.Receive(buffer, 0);
+
+                        string incomingMessage = Encoding.ASCII.GetString(buffer, 0, size);
+
+                        if (incomingMessage.Count() > 0)
+                        {
+                            _clientData.TotalBytesReceived += size;
+                            _clientData.TotalMessagesSent++;
+                            EventManager.CallOnClientMessageReceived(this, new TCPClient_EventArgs.TCPClient_OnMessageReceived() { Message = incomingMessage, MessageBytes = buffer });
+                        }
+                    }
+                }
+                catch
+                {
+
+                }
+                Thread.Sleep(_clientData.ListenerDelay);
+            }
+        }
+
 
         public Socket ClientSocket
         {
@@ -54,6 +95,28 @@ namespace tcp_framework.TCP_Client
             set
             {
                 _eventManager = value;
+            }
+        }
+
+        public bool ClientConnected
+        {
+            get
+            {
+                return _clientConnected;
+            }
+            set
+            {
+                _clientConnected = value;
+            }
+        }
+        public bool SocketConnected
+        {
+            get
+            {
+                if (ClientSocket.Poll(1000, SelectMode.SelectRead) && ClientSocket.Available == 0)
+                    return false;
+                else
+                    return true;
             }
         }
     }
