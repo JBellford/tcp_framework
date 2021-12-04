@@ -60,7 +60,7 @@ namespace tcp_framework.TCP_Server
                 try
                 {
                     socket.Disconnect(false);
-                    EventManager.CallClientDClientConnected(_serverSocket, socket);
+                    EventManager.CallClientDisconnected(_serverSocket, socket);
                 }
                 catch
                 {
@@ -71,6 +71,46 @@ namespace tcp_framework.TCP_Server
 
             ConnectedClients = new List<Socket>();
             EventManager.CallServerStopped(_serverSocket, new TCPServer_OnServerStoppedArgs() { TimeStopped = DateTime.Now, });
+        }   
+
+        public void SendMessage(Socket socket, string message)
+        {
+            byte[] messageBytes = Encoding.ASCII.GetBytes(message);
+            socket.Send(messageBytes);
+        }
+        public void SendMessage(Socket socket, byte[] message)
+        {
+            socket.Send(message);
+        }
+        public void SendGroupMessage(List<Socket> socketGroup, string message)
+        {
+            byte[] messageBytes = Encoding.ASCII.GetBytes(message);
+            foreach (var client in socketGroup)
+            {
+                client.Send(messageBytes);
+            }
+        }
+        public void SendGroupMessage(List<Socket> socketGroup, byte[] message)
+        {
+            foreach (var client in socketGroup)
+            {
+                client.Send(message);
+            }
+        }
+        public void SendGlobalMessage(string message)
+        {
+            byte[] messageBytes = Encoding.ASCII.GetBytes(message);
+            foreach (var client in ConnectedClients)
+            {
+                client.Send(messageBytes);
+            }
+        }
+        public void SendGlobalMessage(byte[] message)
+        {
+            foreach (var client in ConnectedClients)
+            {
+                client.Send(message);
+            }
         }
 
         public TCPServer_EventManager EventManager
@@ -108,7 +148,17 @@ namespace tcp_framework.TCP_Server
                 _serverSocket = value;
             }
         }
-
+        public TCPServer_Data Data
+        {
+            get
+            {
+                return _serverData;
+            }
+            set
+            {
+                _serverData = value;
+            }
+        }
         private void AcceptCallback(IAsyncResult result)
         {
             Socket socket = _serverSocket.EndAccept(result);

@@ -9,20 +9,25 @@ namespace tcp_framework.TCP_Client
     public class TCPClient_EventManager
     {
         public event EventHandler<TCPClient_OnConnectedArgs> OnClientConnected;
-        public event EventHandler<TCPClient_OnDisconnectArgs> OnClientDClientConnected;
+        public event EventHandler<TCPClient_OnDisconnectArgs> OnClientDisconnected;
         public event EventHandler<TCPClient_OnMessageReceived> OnClientMessageReceived;
+        public event EventHandler<TCPClient_OnLoggerArgs> OnLoggerCalled;
 
-        internal void CallOnClientConnected(object sender, TCPClient_OnConnectedArgs args)
+        internal void CallClientConnected(object sender, TCPClient_OnConnectedArgs args)
         {
             OnClientConnected?.Invoke(sender, args);
         }
-        internal void CallOnClientDClientConnected(object sender, TCPClient_OnDisconnectArgs args)
+        internal void CallClientDisconnected(object sender, TCPClient_OnDisconnectArgs args)
         {
-            OnClientDClientConnected?.Invoke(sender, args);
+            OnClientDisconnected?.Invoke(sender, args);
         }
-        internal void CallOnClientMessageReceived(object sender, TCPClient_OnMessageReceived args)
+        internal void CallClientMessageReceived(object sender, TCPClient_OnMessageReceived args)
         {
             OnClientMessageReceived?.Invoke(sender, args);
+        }
+        internal void CallLoggerCalled(object sender, TCPClient_OnLoggerArgs args)
+        {
+            OnLoggerCalled?.Invoke(sender, args);
         }
     }
 }

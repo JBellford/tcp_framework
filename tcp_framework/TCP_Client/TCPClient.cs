@@ -42,7 +42,13 @@ namespace tcp_framework.TCP_Client
         {
             if (ClientConnected)
                 ClientConnected = false;
+
             ClientSocket.Disconnect(reuseClient);
+        }
+        public void SendMessage(string message)
+        {
+            byte[] messageBytes = Encoding.UTF8.GetBytes(message);
+            ClientSocket.Send(messageBytes);
         }
 
         private void Listener()
@@ -60,9 +66,9 @@ namespace tcp_framework.TCP_Client
 
                         if (incomingMessage.Count() > 0)
                         {
-                            _clientData.TotalBytesReceived += size;
-                            _clientData.TotalMessagesSent++;
-                            EventManager.CallOnClientMessageReceived(this, new TCPClient_EventArgs.TCPClient_OnMessageReceived() { Message = incomingMessage, MessageBytes = buffer });
+                            Data.TotalBytesReceived += size;
+                            Data.TotalMessagesSent++;
+                            EventManager.CallClientMessageReceived(this, new TCPClient_EventArgs.TCPClient_OnMessageReceived() { Message = incomingMessage, MessageBytes = buffer });
                         }
                     }
                 }
@@ -95,6 +101,17 @@ namespace tcp_framework.TCP_Client
             set
             {
                 _eventManager = value;
+            }
+        }
+        public TCPClient_Data Data
+        {
+            get
+            {
+                return _clientData;
+            }
+            set
+            {
+                _clientData = value;
             }
         }
 

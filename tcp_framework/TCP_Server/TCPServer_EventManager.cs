@@ -16,7 +16,7 @@ namespace tcp_framework.TCP_Server
         public event EventHandler<TCPServer_OnServerStartedArgs> OnServerStarted;
         public event EventHandler<TCPServer_OnServerStoppedArgs> OnServerStopped;
         public event EventHandler<Socket> OnClientConnected;
-        public event EventHandler<Socket> OnClientDClientConnected;
+        public event EventHandler<Socket> OnClientDisconnected;
 
         internal void CallLogger(object sender, TCPServer_OnLoggerArgs args)
         {
@@ -43,9 +43,9 @@ namespace tcp_framework.TCP_Server
             OnClientConnected?.Invoke(sender, args);
         }
 
-        internal void CallClientDClientConnected(object sender, Socket args)
+        internal void CallClientDisconnected(object sender, Socket args)
         {
-            OnClientDClientConnected?.Invoke(sender, args);
+            OnClientDisconnected?.Invoke(sender, args);
         }
     }
 }

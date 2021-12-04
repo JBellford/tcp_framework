@@ -25,7 +25,17 @@ namespace tcp_framework.TCP_Client
         {
             Reset();
         }
-
+        public Socket ClientSocket
+        {
+            get
+            {
+                return _clientSocket;
+            }
+            set
+            {
+                _clientSocket = value;
+            }
+        }
         public string ServerIP
         {
             get

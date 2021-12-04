@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace tcp_framework.TCP_Client.TCPClient_EventArgs
 {
-    public class TCPServer_OnLoggerArgs
+    public class TCPClient_OnLoggerArgs
     {
         private string _logNote;
         private TCPServer_LogType _logType;
